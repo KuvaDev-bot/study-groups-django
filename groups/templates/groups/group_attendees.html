@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  {% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Iscritti: {{ study_group.subject }}</h1>
+
+<p>
+    Partecipanti:
+    {{ study_group.participant_count }}/{{ study_group.max_participants }}
+</p>
+
+{% if registrations %}
+    <ul class="list-group">
+        {% for registration in registrations %}
+            <li class="list-group-item">
+                <strong>{{ registration.attendee.username }}</strong>
+
+                {% if registration.attendee.email %}
+                    - {{ registration.attendee.email }}
+                {% endif %}
+
+                <br>
+
+                <small>
+                    Iscritto il {{ registration.registered_at|date:"d/m/Y H:i" }}
+                </small>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Non ci sono ancora iscritti a questo gruppo.</p>
+{% endif %}
+
+<a class="btn btn-outline-secondary mt-3" href="{% url 'organizer_dashboard' %}">
+    Torna ai miei gruppi
+</a>
+
+{% endblock %}
+
+</body>
+</html>

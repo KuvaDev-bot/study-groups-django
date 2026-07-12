@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a class="btn btn-outline-secondary mb-3" href="{% url 'study_group_list' %}">
+    Torna all'elenco
+</a>
+
+<div class="card">
+    <div class="card-body">
+        <h1>{{ study_group.subject }}</h1>
+
+        <hr>
+
+        <p>
+            <strong>Programma di studio:</strong><br>
+            {{ study_group.description|linebreaksbr }}
+        </p>
+
+        <p><strong>Data e ora:</strong> {{ study_group.scheduled_at|date:"d/m/Y H:i" }}</p>
+        <p><strong>Luogo:</strong> {{ study_group.location }}</p>
+        <p><strong>Organizer:</strong> {{ study_group.organizer.username }}</p>
+        <p><strong>Partecipanti:</strong> {{ study_group.participant_count }}/{{ study_group.max_participants }}</p>
+
+        {% if study_group.is_full %}
+            <div class="alert alert-danger">Questo gruppo ha raggiunto il numero massimo di partecipanti.</div>
+        {% else %}
+            <div class="alert alert-success">Ci sono ancora posti disponibili.</div>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            {% if user.role == "ATTENDEE" %}
+                {% if is_registered %}
+                    <form method="post" action="{% url 'cancel_registration' study_group.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger" type="submit">Annulla iscrizione</button>
+                    </form>
+                {% elif study_group.is_full %}
+                    <button class="btn btn-secondary" disabled>Gruppo completo</button>
+                {% else %}
+                    <form method="post" action="{% url 'register_to_group' study_group.id %}">
+                        {% csrf_token %}
+                        <button class="btn btn-primary" type="submit">Iscriviti al gruppo</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <p class="text-muted">Gli organizer non possono iscriversi ai gruppi.</p>
+            {% if user == study_group.organizer %}
+                <a class="btn btn-outline-primary" href="{% url 'edit_study_group' study_group.id %}">
+                    Modifica gruppo
+                </a>
+
+                <a class="btn btn-outline-secondary" href="{% url 'group_attendees' study_group.id %}">
+                    Vedi iscritti
+                </a>
+
+                <a class="btn btn-outline-danger" href="{% url 'delete_study_group' study_group.id %}">
+                    Elimina gruppo
+                </a>
+            {% endif %}
+            {% endif %}
+        {% else %}
+            <p><a href="{% url 'login' %}">Accedi</a> per iscriverti a questo gruppo.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-body">
+        <h1 class="h3">Elimina gruppo</h1>
+
+        <p>
+            Vuoi davvero eliminare il gruppo:
+            <strong>{{ study_group.subject }}</strong>?
+        </p>
+
+        <p class="text-danger">
+            Verranno eliminate anche tutte le iscrizioni associate.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <button class="btn btn-danger" type="submit">
+                Elimina definitivamente
+            </button>
+
+            <a class="btn btn-outline-secondary" href="{% url 'organizer_dashboard' %}">
+                Annulla
+            </a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+</body>
+</html>

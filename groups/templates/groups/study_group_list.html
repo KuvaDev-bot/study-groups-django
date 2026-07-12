@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>30eLode</title>
+</head>
+<body>
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Gruppi di studio disponibili</h1>
+
+{% if study_groups %}
+    <div class="row">
+        {% for study_group in study_groups %}
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h2 class="h4">{{ study_group.subject }}</h2>
+
+                        <p>
+                            <strong>Quando:</strong>
+                            {{ study_group.scheduled_at|date:"d/m/Y H:i" }}
+                        </p>
+
+                        <p>
+                            <strong>Dove:</strong>
+                            {{ study_group.location }}
+                        </p>
+
+                        <p>
+                            <strong>Posti:</strong>
+                            {{ study_group.participant_count }}/{{ study_group.max_participants }}
+                        </p>
+
+                        {% if study_group.is_full %}
+                            <p class="text-danger">
+                                Gruppo completo
+                            </p>
+                        {% else %}
+                            <p class="text-success">
+                                Posti disponibili
+                            </p>
+                        {% endif %}
+
+                        <a
+                            class="btn btn-primary"
+                            href="{% url 'study_group_detail' study_group.id %}"
+                        >
+                            Vedi dettagli
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <p>Non ci sono ancora gruppi di studio disponibili.</p>
+{% endif %}
+
+{% endblock %}
+
+</body>
+</html>

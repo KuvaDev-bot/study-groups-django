@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Le mie iscrizioni</h1>
+
+{% if registrations %}
+    <div class="row">
+        {% for registration in registrations %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="h4">{{ registration.study_group.subject }}</h2>
+                        <p><strong>Quando:</strong> {{ registration.study_group.scheduled_at|date:"d/m/Y H:i" }}</p>
+                        <p><strong>Dove:</strong> {{ registration.study_group.location }}</p>
+                        <a class="btn btn-primary" href="{% url 'study_group_detail' registration.study_group.id %}">
+                            Vedi gruppo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Non sei ancora iscritto a nessun gruppo di studio.</p>
+{% endif %}
+
+{% endblock %}

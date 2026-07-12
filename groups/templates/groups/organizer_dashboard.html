@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% extends "base.html" %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>I miei gruppi di studio</h1>
+
+    <a class="btn btn-primary" href="{% url 'create_study_group' %}">
+        Crea gruppo
+    </a>
+</div>
+
+{% if study_groups %}
+    <div class="row">
+        {% for study_group in study_groups %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="h4">{{ study_group.subject }}</h2>
+
+                        <p>
+                            {{ study_group.scheduled_at|date:"d/m/Y H:i" }}
+                        </p>
+
+                        <p>
+                            Iscritti:
+                            {{ study_group.participant_count }}/{{ study_group.max_participants }}
+                        </p>
+
+                        <a class="btn btn-primary" href="{% url 'study_group_detail' study_group.id %}">
+                            Dettaglio
+                        </a>
+
+                        <a class="btn btn-outline-primary" href="{% url 'edit_study_group' study_group.id %}">
+                            Modifica
+                        </a>
+
+                        <a class="btn btn-outline-secondary" href="{% url 'group_attendees' study_group.id %}">
+                            Iscritti
+                        </a>
+
+                        <a class="btn btn-outline-danger" href="{% url 'delete_study_group' study_group.id %}">
+                            Elimina
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>Non hai ancora creato gruppi di studio.</p>
+{% endif %}
+
+{% endblock %}
+
+
+</body>
+</html>

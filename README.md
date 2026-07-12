@@ -18,6 +18,10 @@ Gli organizer possono creare, modificare ed eliminare i propri gruppi di studio,
 
 Gli attendee possono visualizzare i gruppi disponibili, iscriversi se ci sono posti liberi, annullare le proprie iscrizioni e vedere la lista dei gruppi a cui sono iscritti.
 
+## Link Deploy Online
+
+https://study-groups-django.onrender.com
+
 ## Funzionalità
 
 ### Utente non autenticato
@@ -58,5 +62,5 @@ Relazioni principali:
 Clonare questo repository:
 
 ```bash
-git clone URL_DEL_TUO_REPOSITORY
+git clone https://github.com/KuvaDev-bot/study-groups-django
 cd study_groups

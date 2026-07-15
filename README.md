@@ -59,8 +59,70 @@ Relazioni principali:
 
 ## Installazione locale
 
-Clonare questo repository:
+Clona il repository e apri la cartella del progetto:
 
 ```bash
-git clone https://github.com/KuvaDev-bot/study-groups-django
-cd study_groups
+git clone https://github.com/KuvaDev-bot/study-groups-django.git
+cd study-groups-django
+```
+
+Crea e attiva un virtual environment:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Installa le dipendenze:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Applica le migrazioni, se necessario:
+
+```bash
+python manage.py migrate
+```
+
+Avvia il server:
+
+```bash
+python manage.py runserver
+```
+
+Apri il progetto nel browser:
+
+```text
+http://127.0.0.1:8000/
+```
+
+## Database demo
+
+Il file `db.sqlite3` è incluso nel repository e contiene dati demo: utenti, gruppi di studio e iscrizioni. Il progetto può quindi essere esplorato subito dopo il clone.
+
+## Account demo
+
+| Username | Password | Ruolo |
+|---|---|---|
+| `admin_demo` | `admin12345` | amministratore |
+| `organizer_demo` | `organizer12345` | organizer |
+| `attendee_demo` | `attendee12345` | attendee |
+| `attendee_test` | `test12345` | attendee |
+
+## Scenario di test
+
+1. Accedi come `attendee_demo`.
+2. Apri un gruppo non completo e clicca **Iscriviti al gruppo**.
+3. Apri **Le mie iscrizioni** e verifica che il gruppo compaia nella lista.
+4. Annulla l'iscrizione dal dettaglio del gruppo.
+5. Accedi come `organizer_demo`.
+6. Apri **I miei gruppi**, crea un gruppo e controlla la lista degli iscritti.
+7. Prova ad accedere come organizer diverso e modificare un gruppo non tuo: l'operazione deve essere bloccata.
+8. Prova a iscriverti a un gruppo completo: l'iscrizione deve essere bloccata.
+
+## Deploy online
+
+Il progetto è disponibile su Render:
+
+https://study-groups-django.onrender.com

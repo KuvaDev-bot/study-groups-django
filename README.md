@@ -18,9 +18,6 @@ Gli organizer possono creare, modificare ed eliminare i propri gruppi di studio,
 
 Gli attendee possono visualizzare i gruppi disponibili, iscriversi se ci sono posti liberi, annullare le proprie iscrizioni e vedere la lista dei gruppi a cui sono iscritti.
 
-## Link Deploy Online
-
-https://study-groups-django.onrender.com
 
 ## Funzionalità
 
